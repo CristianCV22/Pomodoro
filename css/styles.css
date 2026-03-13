@@ -1,0 +1,117 @@
+/* 1. VARIABLES: La paleta de colores y fuentes */
+:root {
+    --fondo-oscuro: #121212;
+    --fondo-tarjeta: #1e1e1e;
+    --texto-principal: #ffffff;
+    --texto-secundario: #b3b3b3;
+    --color-acento: #4caf50; /* Un verde tranquilo para el enfoque */
+    --fuente-principal: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* 2. RESETEO Y MODELO DE CAJA */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 3. FLEXBOX EN EL BODY: Centrado perfecto */
+body {
+    background-color: var(--fondo-oscuro);
+    color: var(--texto-principal);
+    font-family: var(--fuente-principal);
+    
+    /* Magia de Flexbox */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    min-height: 100vh;       /* Ocupa el 100% del alto de la pantalla */
+}
+
+/* 4. LA TARJETA PRINCIPAL */
+.contenedor-principal {
+    background-color: var(--fondo-tarjeta);
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 5. EL TEXTO */
+.titulo {
+    color: var(--texto-secundario);
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+#tiempo-display {
+    display: block;
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    line-height: 1;
+}
+
+/* 6. LOS BOTONES (Estructura base) */
+.controles {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio entre botones */
+}
+
+.boton {
+    background-color: transparent;
+    color: var(--texto-principal);
+    border: 2px solid var(--texto-secundario);
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Prepara el terreno para las animaciones */
+}
+
+/* 7. EFECTOS HOVER: Interacción y retroalimentación visual */
+.boton:hover {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+    color: var(--fondo-oscuro);
+    transform: translateY(-2px); /* Un sutil levantamiento del botón */
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3); /* Un leve resplandor verde */
+}
+
+.boton:active {
+    transform: translateY(0); /* Simula el hundimiento mecánico al hacer clic */
+}
+
+/* 8. RESPONSIVIDAD: Adaptación a pantallas móviles */
+@media (max-width: 600px) {
+    .contenedor-principal {
+        padding: 30px 20px;
+        width: 90%; /* Evita que toque los bordes del teléfono */
+    }
+
+    #tiempo-display {
+        font-size: 5rem; /* Achicamos un poco el reloj para que quepa bien */
+    }
+
+    .controles {
+        flex-direction: column; /* Apila los botones uno debajo del otro */
+        gap: 10px;
+    }
+}
+
+/* 9. CLASE DE ESTADO: Modo Descanso */
+/* Cuando el body tenga esta clase, las variables cambiarán automáticamente */
+body.modo-descanso {
+    --fondo-oscuro: #1b5e20; /* Un verde oscuro relajante */
+    --color-acento: #81c784; /* Un verde más claro para los botones */
+}
+
+.contador { 
+    color: var(--texto-secundario); 
+    font-size: 1rem; 
+    margin-bottom: 20px;
+ }
