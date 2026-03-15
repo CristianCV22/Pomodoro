@@ -7,16 +7,34 @@ const btnReiniciar = document.getElementById('btn-reiniciar');
 // Creamos un "reproductor" invisible y le decimos dónde está el archivo
 const sonidoAlarma = new Audio('assets/notificacion.mp3');
 const contadorDisplay = document.getElementById('contador-ciclos');
+// --- ELEMENTOS DEL RITUAL DE INICIO (Día 4) ---
+const modalRitual = document.getElementById('modal-ritual');
+const btnEntrarZona = document.getElementById('btn-entrar-zona');
+// querySelectorAll atrapa TODOS los elementos que tengan esa clase y los guarda en una lista
+const checkboxesRitual = document.querySelectorAll('.checkbox-ritual');
 
 // 2. Hacemos una prueba de vida para asegurarnos de que todo está conectado
 console.log("¡El cerebro de la aplicación está conectado!");
 console.log("El tiempo inicial es:", tiempoDisplay.textContent);
 
 // --- VARIABLES DE ESTADO (La memoria de la app) ---
-let tiempoRestante = 1500; // 25 minutos expresados en segundos (25 * 60)
+let tiempoRestante = 3; // 25 minutos expresados en segundos (25 * 60)
 let temporizadorId = null; // Aquí guardaremos el ID del intervalo para poder detenerlo luego
 let esModoTrabajo = true; // NUEVO: Iniciamos asumiendo que el primer ciclo es de trabajo
-let ciclosCompletados = 0;
+// --- LA MAGIA DEL DÍA 7: Leer la memoria ---
+// Buscamos la llave 'pomodorosHoy'. Si existe, la convertimos a número (parseInt). Si no existe (||), ponemos un 0.
+const fechaHoy = new Date().toDateString();
+const fechaGuardada = localStorage.getItem('fechaPomodoro');
+let ciclosCompletados = 0; 
+
+if (fechaGuardada !== fechaHoy) {
+    localStorage.setItem('pomodorosHoy', '0');
+    localStorage.setItem('fechaPomodoro', fechaHoy);
+    ciclosCompletados = 0;
+} else {
+    ciclosCompletados = parseInt(localStorage.getItem('pomodorosHoy')) || 0;
+}
+contadorDisplay.textContent = `Pomodoros completados: ${ciclosCompletados}`;
 // --- FUNCIONES ---
 
 // Función para formatear y mostrar el tiempo en la pantalla
@@ -41,52 +59,55 @@ actualizarPantalla();
 // --- EVENTOS Y LÓGICA DEL MOTOR ---
 
 // Creamos la función que arranca el reloj
+// Creamos la función que arranca el reloj (Versión a prueba de pestañas inactivas)
 function iniciarTemporizador() {
-    // 1. Prevenir el bug de clics múltiples: 
-    // Si temporizadorId no es null, el reloj ya está corriendo. Salimos de la función.
     if (temporizadorId !== null) return;
 
-    // 2. Arrancamos el motor (setInterval)
+    // 1. Guardamos la hora EXACTA en la que le dimos clic a "Iniciar"
+    const tiempoInicio = Date.now();
+    // 2. Guardamos cuántos segundos teníamos en pantalla al arrancar
+    const tiempoRestanteAlInicio = tiempoRestante; 
+
     temporizadorId = setInterval(() => {
-        // Restamos un segundo a nuestra memoria
-        tiempoRestante--;
-        
-        // Actualizamos lo que el usuario ve en pantalla
-        actualizarPantalla();
+        // 3. Calculamos la diferencia de tiempo real que ha pasado
+        const tiempoPasadoMilisegundos = Date.now() - tiempoInicio;
+        const segundosPasados = Math.floor(tiempoPasadoMilisegundos / 1000);
 
-        // 3. El límite: ¿Qué pasa cuando llegamos a cero?
-        if (tiempoRestante === 0) {
-            clearInterval(temporizadorId); // Frenamos el motor
-            temporizadorId = null; // Limpiamos la variable
+        // 4. Actualizamos nuestra memoria restando los segundos reales pasados
+        tiempoRestante = tiempoRestanteAlInicio - segundosPasados;
 
-            // --- LA MAGIA DEL DÍA 10 ---
-            // Reproducimos el sonido
+        // 5. El límite: ¿Qué pasa cuando llegamos a cero (o nos pasamos por estar dormidos)?
+        if (tiempoRestante <= 0) {
+            tiempoRestante = 0; // Forzamos a cero por si se pasó a números negativos
+            actualizarPantalla(); // Mostramos el 00:00 por un milisegundo
+            
+            clearInterval(temporizadorId); 
+            temporizadorId = null; 
+            
             sonidoAlarma.play();
-            // --- LA MAGIA DEL DÍA 11: Contar el ciclo ---
-            // Solo sumamos si el modo que acaba de terminar era "Trabajo"
-            if (esModoTrabajo) {
-                ciclosCompletados++; // Esto suma 1 a la variable
-                contadorDisplay.textContent = `Pomodoros completados: ${ciclosCompletados}`;
-            }
-            // --- LA MAGIA DEL DÍA 8 ---
-            
-            // Invertimos el estado: Si era true pasa a false, y viceversa
-            esModoTrabajo = !esModoTrabajo; 
-            
-            // --- LA MAGIA DEL DÍA 9 ---
-            // Alternamos la clase visual en el body
-            document.body.classList.toggle('modo-descanso');
 
-            // Operador ternario: ¿esModoTrabajo es true? entonces 1500 seg (25 min) : sino 300 seg (5 min)
+            // --- LA MAGIA DEL DÍA 7, 8 y 9: Guardar la partida y la fecha ---
+            if (esModoTrabajo) {
+                ciclosCompletados++; 
+                contadorDisplay.textContent = `Pomodoros completados: ${ciclosCompletados}`;
+                
+                // Guardamos el número y la etiqueta de tiempo exacta
+                localStorage.setItem('pomodorosHoy', ciclosCompletados);
+                localStorage.setItem('fechaPomodoro', new Date().toDateString());
+            }
+            
+            // --- LA MAGIA DEL DÍA 8 Y 9 ---
+            esModoTrabajo = !esModoTrabajo; 
+            document.body.classList.toggle('modo-descanso');
             tiempoRestante = esModoTrabajo ? 1500 : 300; 
             
-            // Actualizamos la pantalla con el nuevo tiempo cargado
             actualizarPantalla(); 
-            
-            // Un mensaje en la consola para confirmar en qué fase estamos
             console.log(esModoTrabajo ? "Modo: Trabajo (25 min)" : "Modo: Descanso (5 min)");
+        } else {
+            // Si aún no llegamos a cero, actualizamos la pantalla normalmente
+            actualizarPantalla();
         }
-    }, 1000); // 1000 milisegundos = 1 segundo
+    }, 1000); 
 }
 
 // 4. Conectamos el botón físico de HTML con nuestra función
@@ -122,3 +143,35 @@ function reiniciarTemporizador() {
 // Conectamos los últimos dos botones físicos con sus respectivas funciones
 btnPausar.addEventListener('click', pausarTemporizador);
 btnReiniciar.addEventListener('click', reiniciarTemporizador);
+
+// --- LÓGICA DEL RITUAL DE INICIO ---
+
+// 1. Creamos la función que se ejecutará cada vez que un chulo cambie
+function verificarRitual() {
+    // Usamos Array.from para convertir la lista en un arreglo que podamos manipular
+    // .every() pregunta: "¿Todos los elementos tienen la propiedad 'checked' en true?"
+    const todasCompletadas = Array.from(checkboxesRitual).every(checkbox => checkbox.checked);
+
+    // Evaluamos el resultado
+    if (todasCompletadas) {
+        // Si las 4 están marcadas, le arrancamos el atributo 'disabled' al botón HTML
+        btnEntrarZona.removeAttribute('disabled');
+    } else {
+        // Si falta alguna (o si el usuario desmarca una), le volvemos a poner el candado
+        btnEntrarZona.setAttribute('disabled', 'true');
+    }
+}
+
+// 2. Recorremos la lista de checkboxes y a CADA UNO le ponemos el oído ('change')
+checkboxesRitual.forEach(checkbox => {
+    checkbox.addEventListener('change', verificarRitual);
+});
+
+// 3. El evento del botón "Entrar en Zona"
+btnEntrarZona.addEventListener('click', () => {
+    // Le añadimos la clase 'oculto' al modal completo para que desaparezca
+    modalRitual.classList.add('oculto');
+    
+    // Un mensaje de confirmación para ti
+    console.log("¡Ritual completado! Entrando en zona de enfoque.");
+});
