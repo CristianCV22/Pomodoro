@@ -18,7 +18,7 @@ console.log("¡El cerebro de la aplicación está conectado!");
 console.log("El tiempo inicial es:", tiempoDisplay.textContent);
 
 // --- VARIABLES DE ESTADO (La memoria de la app) ---
-let tiempoRestante = 3; // 25 minutos expresados en segundos (25 * 60)
+let tiempoRestante = 1500; // 25 minutos expresados en segundos (25 * 60)
 let temporizadorId = null; // Aquí guardaremos el ID del intervalo para poder detenerlo luego
 let esModoTrabajo = true; // NUEVO: Iniciamos asumiendo que el primer ciclo es de trabajo
 // --- LA MAGIA DEL DÍA 7: Leer la memoria ---
