@@ -1,0 +1,42 @@
+/* 1. VARIABLES: La paleta de colores y fuentes */
+:root {
+    --fondo-oscuro: #121212;
+    --fondo-tarjeta: #1e1e1e;
+    --texto-principal: #ffffff;
+    --texto-secundario: #b3b3b3;
+    --color-acento: #4caf50; /* Un verde tranquilo para el enfoque */
+    --fuente-principal: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* 2. RESETEO Y MODELO DE CAJA */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 3. FLEXBOX EN EL BODY: Centrado perfecto */
+body {
+    background-color: var(--fondo-oscuro);
+    color: var(--texto-principal);
+    font-family: var(--fuente-principal);
+    
+    /* Magia de Flexbox */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    min-height: 100vh;       /* Ocupa el 100% del alto de la pantalla */
+}
+
+/* 9. CLASE DE ESTADO: Modo Descanso */
+/* Cuando el body tenga esta clase, las variables cambiarán automáticamente */
+body.modo-descanso {
+    --fondo-oscuro: #1b5e20; /* Un verde oscuro relajante */
+    --color-acento: #81c784; /* Un verde más claro para los botones */
+}
+
+.contador { 
+    color: var(--texto-secundario); 
+    font-size: 1rem; 
+    margin-bottom: 20px;
+ }

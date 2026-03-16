@@ -1,0 +1,110 @@
+
+
+
+ /* =========================================
+   10. MODAL DEL RITUAL DE INICIO
+   ========================================= */
+
+/* El telón de fondo que bloquea la aplicación */
+.modal-overlay {
+    position: fixed; /* Lo ancla a la pantalla */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ocupa el 100% del ancho visual */
+    height: 100vh; /* Ocupa el 100% del alto visual */
+    background-color: rgba(18, 18, 18, 0.7); /* Fondo oscuro semi-transparente */
+    backdrop-filter: blur(8px); /* El efecto de desenfoque elegante */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garantiza que flote por encima de todo el resto */
+    /* MAGIA DEL DÍA 10: Preparamos la animación */
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* La tarjeta del ritual */
+.modal-contenido {
+    background-color: var(--fondo-tarjeta);
+    padding: 40px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8); /* Una sombra más profunda para dar relieve */
+}
+
+/* Tipografía del Modal */
+.titulo-ritual {
+    color: var(--texto-principal);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.subtitulo-ritual {
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* Alineación de la lista para que no quede centrada, sino alineada a la izquierda */
+.lista-ritual {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Separación entre cada tarea */
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* =========================================
+   11. ESTILOS DE LOS CHECKBOXES (Los chulos)
+   ========================================= */
+
+/* Estilo para cada fila de tarea */
+.tarea-ritual {
+    display: flex;
+    align-items: center; /* Alinea el cuadrito con el texto perfectamente */
+    gap: 15px; /* Espacio entre el cuadro y el texto */
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--texto-secundario);
+    transition: color 0.3s ease;
+}
+
+/* Un leve brillo cuando pasas el mouse por encima de la tarea */
+.tarea-ritual:hover {
+    color: var(--texto-principal);
+}
+
+/* Hacemos el cuadrito más grande e interactivo */
+.checkbox-ritual {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: var(--color-acento); /* Magia CSS: Pinta el "chulo" con tu verde personalizado */
+}
+
+/* =========================================
+   12. EL BOTÓN APAGADO (Estado Disabled)
+   ========================================= */
+
+/* Sobrescribimos el diseño del botón solo cuando tiene el atributo 'disabled' */
+.boton:disabled {
+    background-color: transparent;
+    border-color: #444; /* Un gris muy oscuro y apagado */
+    color: #555; /* Texto oscuro */
+    cursor: not-allowed; /* Cambia la manita por un símbolo de prohibido */
+    transform: translateY(0); /* Evita que salte si le pasas el mouse */
+    box-shadow: none; /* Le quita el resplandor */
+}
+
+/* =========================================
+   13. CLASES UTILITARIAS (Estados)
+   ========================================= */
+
+/* Esta clase hará desaparecer cualquier elemento de la pantalla */
+.oculto {
+    opacity: 0;
+    visibility: hidden;
+}

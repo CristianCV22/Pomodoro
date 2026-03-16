@@ -1,0 +1,76 @@
+
+
+/* 4. LA TARJETA PRINCIPAL */
+.contenedor-principal {
+    background-color: var(--fondo-tarjeta);
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 5. EL TEXTO */
+.titulo {
+    color: var(--texto-secundario);
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+#tiempo-display {
+    display: block;
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    line-height: 1;
+}
+
+/* 6. LOS BOTONES (Estructura base) */
+.controles {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio entre botones */
+}
+
+.boton {
+    background-color: transparent;
+    color: var(--texto-principal);
+    border: 2px solid var(--texto-secundario);
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Prepara el terreno para las animaciones */
+}
+
+/* 7. EFECTOS HOVER: Interacción y retroalimentación visual */
+.boton:hover {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+    color: var(--fondo-oscuro);
+    transform: translateY(-2px); /* Un sutil levantamiento del botón */
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3); /* Un leve resplandor verde */
+}
+
+.boton:active {
+    transform: translateY(0); /* Simula el hundimiento mecánico al hacer clic */
+}
+
+/* 8. RESPONSIVIDAD: Adaptación a pantallas móviles */
+@media (max-width: 600px) {
+    .contenedor-principal {
+        padding: 30px 20px;
+        width: 90%; /* Evita que toque los bordes del teléfono */
+    }
+
+    #tiempo-display {
+        font-size: 5rem; /* Achicamos un poco el reloj para que quepa bien */
+    }
+
+    .controles {
+        flex-direction: column; /* Apila los botones uno debajo del otro */
+        gap: 10px;
+    }
+}

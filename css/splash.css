@@ -1,0 +1,93 @@
+
+
+/* =========================================
+   14. PANTALLA DE BIENVENIDA (SPLASH SCREEN)
+   ========================================= */
+
+.splash-contenedor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--fondo-oscuro); /* Tu fondo principal oscuro */
+    z-index: 9999; /* El rey de las capas. Por encima del modal del ritual */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* LA MAGIA DEL DÍA 2: Toda la pantalla dura 2.5s y luego desaparece */
+    /* 'forwards' le dice a CSS que se quede en el estado final (transparente) y no vuelva a ponerse negro */
+    animation: desvanecerPantalla 2.5s ease forwards;
+}
+
+/* El grupo central de textos */
+.splash-centro {
+    text-align: center;
+    /* Aparece en 1 segundo */
+    animation: aparecerYCrecer 1s ease forwards;
+}
+
+/* El nombre principal de la app */
+.splash-titulo {
+    font-size: 4.5rem;
+    color: var(--color-acento); /* Tu verde característico */
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+/* El subtítulo */
+.splash-subtitulo {
+    font-size: 1.2rem;
+    color: var(--texto-secundario);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* Tu sello personal anclado al fondo */
+.splash-firma {
+    position: absolute; /* Lo saca del centro y nos deja pegarlo abajo */
+    bottom: 30px;
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    /* Aparece en 1 segundo, pero espera 0.5s antes de arrancar (delay) para darle drama */
+    opacity: 0; /* Arranca invisible */
+    animation: aparecerYCrecer 1s ease 0.5s forwards;
+}
+
+/* Para que tu nombre destaque en blanco */
+.splash-firma strong {
+    color: var(--texto-principal);
+    font-weight: bold;
+}
+
+/* --- ANIMACIONES DEL SPLASH SCREEN --- */
+
+/* Animación para el texto: Entra suave y se acerca */
+@keyframes aparecerYCrecer {
+    0% {
+        opacity: 0;
+        transform: scale(0.9); /* Ligeramente más pequeño */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Tamaño real */
+    }
+}
+
+/* Animación para el fondo: Se queda quieto un rato y luego desaparece */
+@keyframes desvanecerPantalla {
+    0%, 75% { 
+        /* Del 0% al 75% del tiempo total, se queda totalmente visible */
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        /* Al final, se vuelve transparente e invisible */
+        opacity: 0;
+        visibility: hidden;
+    }
+}
