@@ -16,3 +16,5 @@ export const splashScreen = document.getElementById('splash-screen');
 
 // También exportamos el reproductor de audio
 export const sonidoAlarma = new Audio('assets/notificacion.mp3');
+
+export const contenedorPrincipal = document.querySelector('.contenedor-principal');

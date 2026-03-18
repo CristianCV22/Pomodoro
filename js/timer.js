@@ -7,7 +7,7 @@ import { tiempoDisplay, contadorDisplay, sonidoAlarma } from './elementos.js';
 import { inicializarMemoria, guardarProgreso } from './storage.js';
 
 // 2. Variables de Estado exclusivas del reloj
-let tiempoRestante = 1500; 
+let tiempoRestante = 1500; // 25 minutos en segundos
 let temporizadorId = null; 
 let esModoTrabajo = true; 
 let ciclosCompletados = inicializarMemoria();
@@ -47,6 +47,14 @@ export function iniciarTemporizador() {
                 ciclosCompletados++; 
                 contadorDisplay.textContent = `Pomodoros completados: ${ciclosCompletados}`;
                 guardarProgreso(ciclosCompletados);
+
+                // LA MAGIA DEL DÍA 5 (V4): Disparamos el latido de recompensa
+                contadorDisplay.classList.add('animar-pulso');
+                
+                // Le quitamos la clase medio segundo después para poder volver a usarla en el siguiente Pomodoro
+                setTimeout(() => {
+                    contadorDisplay.classList.remove('animar-pulso');
+                }, 500);
             }
             
             esModoTrabajo = !esModoTrabajo; 

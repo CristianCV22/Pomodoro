@@ -70,6 +70,10 @@
     font-size: 1.1rem;
     color: var(--texto-secundario);
     transition: color 0.3s ease;
+
+    /* Protección móvil */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 /* Un leve brillo cuando pasas el mouse por encima de la tarea */
@@ -83,6 +87,28 @@
     height: 22px;
     cursor: pointer;
     accent-color: var(--color-acento); /* Magia CSS: Pinta el "chulo" con tu verde personalizado */
+    /* LA MAGIA DEL DÍA 4: Una transición con efecto de resorte (cubic-bezier) */
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* Protección móvil */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+/* Efecto mecánico: Cuando el usuario presiona el clic, el cuadro se hunde ligeramente */
+.checkbox-ritual:active {
+    transform: scale(0.8);
+}
+
+/* Preparamos el texto para que se anime suavemente */
+.tarea-ritual span {
+    transition: all 0.3s ease;
+}
+
+/* Cuando el checkbox está marcado, agarramos el span de al lado y lo tachamos */
+.checkbox-ritual:checked + span {
+    color: var(--texto-secundario); /* Lo oscurecemos un poco */
+    text-decoration: line-through; /* Le pasamos la línea por encima */
+    opacity: 0.6; /* Lo hacemos semi-transparente para indicar que ya no es prioridad */
 }
 
 /* =========================================

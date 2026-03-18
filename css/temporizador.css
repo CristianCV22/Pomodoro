@@ -7,6 +7,13 @@
     border-radius: 16px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* LA MAGIA DEL DÍA 2 (V4): Animación de entrada fluida */
+    opacity: 0; /* Arranca invisible para que la animación haga la magia */
+}
+
+/* NUEVA CLASE: El gatillo que JavaScript disparará */
+.animar-entrada {
+    animation: flotarHaciaArriba 0.8s ease-out forwards;
 }
 
 /* 5. EL TEXTO */
@@ -43,6 +50,32 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease; /* Prepara el terreno para las animaciones */
+
+    /* LA MAGIA DEL DÍA 6: Preparando el Ripple */
+    position: relative; /* Para que la onda nazca pegada al botón */
+    overflow: hidden;   /* Corta la onda para que no se salga del borde del botón */
+
+    /* LA MAGIA DEL DÍA 7: Optimizaciones para celular */
+    -webkit-tap-highlight-color: transparent; /* Elimina el cuadro gris feo en móviles */
+    touch-action: manipulation; /* Elimina el retraso de 300ms al tocar, haciendo el clic instantáneo */
+}
+
+/* --- EFECTO ONDA DE AGUA (Ripple) --- */
+.ripple {
+    position: absolute; /* Flota por encima del botón */
+    border-radius: 50%; /* Es un círculo perfecto */
+    background-color: rgba(255, 255, 255, 0.4); /* Blanco semi-transparente */
+    transform: scale(0); /* Arranca invisible (tamaño 0) */
+    animation: expansionOnda 0.6s linear; /* Crece durante medio segundo */
+    pointer-events: none; /* Evita que la onda estorbe si haces doble clic rápido */
+}
+
+/* Animación de la onda creciendo y desvaneciéndose */
+@keyframes expansionOnda {
+    to {
+        transform: scale(4); /* Crece 4 veces su tamaño original */
+        opacity: 0; /* Se hace transparente al final */
+    }
 }
 
 /* 7. EFECTOS HOVER: Interacción y retroalimentación visual */
@@ -73,4 +106,38 @@
         flex-direction: column; /* Apila los botones uno debajo del otro */
         gap: 10px;
     }
+}
+
+/* --- ANIMACIONES DEL TEMPORIZADOR --- */
+
+@keyframes flotarHaciaArriba {
+    0% {
+        opacity: 0;
+        transform: translateY(40px); /* Empieza 40 píxeles más abajo */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Sube a su posición original (0) */
+    }
+}
+
+/* --- ANIMACIÓN DE RECOMPENSA (Latido) --- */
+@keyframes pulsoExito {
+    0% {
+        transform: scale(1);
+        color: var(--texto-secundario);
+    }
+    50% {
+        transform: scale(1.2); /* Crece un 20% */
+        color: var(--color-acento); /* Brilla en tu verde característico */
+    }
+    100% {
+        transform: scale(1);
+        color: var(--texto-secundario);
+    }
+}
+
+/* La clase que JavaScript usará como gatillo */
+.animar-pulso {
+    animation: pulsoExito 0.5s ease;
 }

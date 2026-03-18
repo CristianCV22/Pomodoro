@@ -26,6 +26,10 @@ body {
     justify-content: center; /* Centra horizontalmente */
     align-items: center;     /* Centra verticalmente */
     min-height: 100vh;       /* Ocupa el 100% del alto de la pantalla */
+
+    /* LA MAGIA DEL DÍA 3 (V4): Transiciones de estado */
+    /* Le decimos que el color de fondo cambie suavemente durante 0.8 segundos */
+    transition: background-color 0.8s ease, color 0.8s ease;
 }
 
 /* 9. CLASE DE ESTADO: Modo Descanso */
