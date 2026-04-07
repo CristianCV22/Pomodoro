@@ -3,10 +3,17 @@ import { btnIniciar, btnPausar, btnReiniciar } from './elementos.js';
 import { iniciarTemporizador, pausarTemporizador, reiniciarTemporizador } from './timer.js';
 import { inicializarSplash } from './splash.js';
 import { inicializarRitual } from './ritual.js';
+import { inicializarTareas } from './tareas.js';
+// Arriba en los imports:
+import { inicializarEstadisticas } from './estadisticas.js';
+
+// En la sección de inicialización:
+inicializarEstadisticas();
 
 // 2. INICIALIZAMOS LA INTERFAZ (Bienvenida y Ritual)
 inicializarSplash();
 inicializarRitual();
+inicializarTareas();
 
 // 3. CONECTAMOS LOS BOTONES DEL RELOJ
 btnIniciar.addEventListener('click', iniciarTemporizador);

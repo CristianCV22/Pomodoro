@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="css/temporizador.css">
     <link rel="stylesheet" href="css/ritual.css">
     <link rel="stylesheet" href="css/splash.css">
+    <link rel="stylesheet" href="css/tareas.css">
+    <link rel="stylesheet" href="css/estadisticas.css">
 </head>
 <body>
     <div id="splash-screen" class="splash-contenedor">
         <div class="splash-centro">
             <h1 class="splash-titulo">Tomate</h1>
-            <p class="splash-subtitulo">Focus Timer</p>
+            <p class="splash-subtitulo">Temporizador de enfoque</p>
         </div>
         <div class="splash-firma">
             <p>by <strong>CCamiloVGarcia</strong></p>
@@ -52,11 +54,13 @@
     </div>
     <main class="contenedor-principal">
         
-        <header>
+        <header class="header-app">
             <h1 class="titulo">Tiempo de Enfoque</h1>
+            <button id="btn-abrir-estadisticas" class="boton-header">📊 Stats</button>
         </header>
 
         <section class="temporizador">
+            <p id="tarea-activa-display" class="tarea-activa-texto">Enfoque: Modo Libre</p>
             <time id="tiempo-display">25:00</time>
             <p id="contador-ciclos" class="contador">Pomodoros completados: 0</p>
         </section>
@@ -66,9 +70,30 @@
             <button id="btn-pausar" class="boton">Pausar</button>
             <button id="btn-reiniciar" class="boton">Reiniciar</button>
         </section>
-
+        <section class="gestor-tareas">
+            <div class="input-contenedor">
+                <input type="text" id="input-nueva-tarea" class="input-tarea" placeholder="¿Cuál es tu enfoque de hoy?">
+                <button id="btn-agregar-tarea" class="boton boton-agregar">+</button>
+            </div>
+            
+            <ul id="lista-tareas" class="lista-tareas">
+                </ul>
+        </section>
     </main>
-
+    <div id="modal-estadisticas" class="modal-overlay oculto">
+        <div class="modal-contenido modal-largo">
+            <header class="modal-header">
+                <h2 class="titulo-ritual">Auditoría de Esfuerzo</h2>
+                <button id="btn-cerrar-estadisticas" class="btn-cerrar">✖</button>
+            </header>
+            
+            <div class="estadisticas-contenedor">
+                <div id="grafico-contenedor" class="grafico-puro">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="module" src="js/app.js"></script>
 </body>
 </html>

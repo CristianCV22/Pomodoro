@@ -1,0 +1,107 @@
+/* ==========================================
+   MÓDULO DE ESTADÍSTICAS: Interfaz del Auditor
+   ========================================== */
+
+/* Estilos para el nuevo header */
+.header-app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.boton-header {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--texto-principal);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--fuente-principal);
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.boton-header:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Modificaciones para que el modal de stats sea más ancho que el del ritual */
+.modal-largo {
+    max-width: 600px; /* Más espacio para los gráficos */
+    width: 90%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.btn-cerrar {
+    background: none;
+    border: none;
+    color: var(--texto-secundario);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.btn-cerrar:hover {
+    color: #ff4c4c;
+}
+
+.estadisticas-contenedor {
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* --- GRÁFICO ARTESANAL (SIN LIBRERÍAS) --- */
+.grafico-puro {
+    display: flex;
+    align-items: flex-end; /* Pega las barras a la parte de abajo */
+    justify-content: space-around; /* Reparte el espacio entre los días */
+    width: 100%;
+    height: 250px; /* La altura máxima que podrá tener el gráfico */
+    padding: 20px 10px 0 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* La línea del Eje X */
+}
+
+/* Cada columna contiene: el número arriba, la barra en medio, y el día abajo */
+.columna-grafico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    width: 12%; /* Grosor de la columna */
+    gap: 8px; /* Espacio entre el número, la barra y la letra */
+}
+
+.valor-barra {
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    font-weight: bold;
+    opacity: 0; /* Arranca invisible para animarlo */
+    transition: opacity 0.5s ease 0.5s; /* Aparece después de que la barra suba */
+}
+
+.barra {
+    width: 100%;
+    background-color: var(--color-acento);
+    border-radius: 4px 4px 0 0; /* Bordes redondeados solo en la punta */
+    min-height: 2px; /* Si hay 0 pomodoros, que se vea al menos una rayita */
+    transition: height 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote */
+}
+
+.etiqueta-barra {
+    color: var(--texto-secundario);
+    font-size: 0.85rem;
+}

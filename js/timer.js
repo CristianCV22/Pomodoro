@@ -6,6 +6,13 @@
 import { tiempoDisplay, contadorDisplay, sonidoAlarma } from './elementos.js';
 import { inicializarMemoria, guardarProgreso } from './storage.js';
 
+//
+//let tomate = 1500; // 25 minutos en segundos
+//let descanso = 300; // 5 minutos en segundos
+//let descansoLargo = 900; // 15 minutos en segundos
+
+
+
 // 2. Variables de Estado exclusivas del reloj
 let tiempoRestante = 1500; // 25 minutos en segundos
 let temporizadorId = null; 
@@ -51,7 +58,7 @@ export function iniciarTemporizador() {
                 // LA MAGIA DEL DÍA 5 (V4): Disparamos el latido de recompensa
                 contadorDisplay.classList.add('animar-pulso');
                 
-                // Le quitamos la clase medio segundo después para poder volver a usarla en el siguiente Pomodoro
+                // Le quitamos la clase medio segundo después para poder volver a usarla
                 setTimeout(() => {
                     contadorDisplay.classList.remove('animar-pulso');
                 }, 500);
@@ -59,14 +66,30 @@ export function iniciarTemporizador() {
             
             esModoTrabajo = !esModoTrabajo; 
             document.body.classList.toggle('modo-descanso');
-            tiempoRestante = esModoTrabajo ? 1500 : 300; 
+            
+            // =========================================================
+            // LA MAGIA DEL DÍA 13 (V5): Lógica estricta de descanso largo
+            // =========================================================
+            if (esModoTrabajo) {
+                tiempoRestante = 1500; // Volvemos a los 25 minutos (1500 seg)
+            } else {
+                // Evaluamos si merece el descanso largo (Múltiplos de 4)
+                if (ciclosCompletados > 0 && ciclosCompletados % 4 === 0) {
+                    tiempoRestante = 900; // ¡Premio! 15 minutos (900 seg)
+                    console.log("¡Premio! Descanso largo de 15 minutos activado.");
+                } else {
+                    tiempoRestante = 300; // Descanso normal de 5 minutos (300 seg)
+                    console.log("Descanso corto de 5 minutos.");
+                }
+            }
+            // =========================================================
+
             actualizarPantalla(); 
         } else {
             actualizarPantalla();
         }
     }, 1000); 
 }
-
 export function pausarTemporizador() {
     clearInterval(temporizadorId);
     temporizadorId = null;
