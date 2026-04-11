@@ -1,11 +1,28 @@
 /* 1. VARIABLES: La paleta de colores y fuentes */
 :root {
+
     --fondo-oscuro: #121212;
     --fondo-tarjeta: #1e1e1e;
-    --texto-principal: #ffffff;
-    --texto-secundario: #b3b3b3;
     --color-acento: #4caf50; /* Un verde tranquilo para el enfoque */
     --fuente-principal: 'Segoe UI', system-ui, sans-serif;
+    /* ==========================================
+   SISTEMA DE DISEÑO: Paleta Maestra V6
+   ========================================== */
+    /* Fondos (Las capas de profundidad) */
+    --fondo-void: #0e0e0e;       /* El negro absoluto del fondo principal */
+    --superficie-panel: #131313; /* Un gris levísimamente más claro para paneles */
+    
+    /* Textos (Jerarquía de lectura) */
+    --texto-principal: #ffffff;  /* Blanco puro para datos críticos */
+    --texto-secundario: #adaaaa; /* Gris claro para subtítulos y datos secundarios */
+    --texto-tenue: #565555;      /* Gris oscuro para firmas y marcas de agua */
+    
+    /* Acentos (La energía Kinetic) */
+    --acento-energia: #ff5f1f;   /* Naranja vibrante para el enfoque y la marca */
+    --acento-calma: #90e28a;     /* Verde suave para descansos y éxito */
+
+
+
 }
 
 /* 2. RESETEO Y MODELO DE CAJA */

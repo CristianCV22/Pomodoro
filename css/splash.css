@@ -1,93 +1,225 @@
-
-
-/* =========================================
-   14. PANTALLA DE BIENVENIDA (SPLASH SCREEN)
-   ========================================= */
-
-.splash-contenedor {
+/* ==========================================
+   PANTALLA DE BIENVENIDA (El Contenedor Padre)
+   ========================================== */
+.pantallaBienvenida {
+    /* Secuestramos toda la pantalla */
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--fondo-oscuro); /* Tu fondo principal oscuro */
-    z-index: 9999; /* El rey de las capas. Por encima del modal del ritual */
+    inset: 0; 
+    background-color: var(--fondo-void); /* Tu negro absoluto */
+    z-index: 9999; 
+    
+    /* Usamos Flexbox para centrar todo como en tu video */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    /* LA MAGIA DEL DÍA 2: Toda la pantalla dura 2.5s y luego desaparece */
-    /* 'forwards' le dice a CSS que se quede en el estado final (transparente) y no vuelva a ponerse negro */
-    animation: desvanecerPantalla 2.5s ease forwards;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    
+    /* Un pequeño gap para que los elementos no se peguen */
+    gap: 15px; 
 }
 
-/* El grupo central de textos */
-.splash-centro {
-    text-align: center;
-    /* Aparece en 1 segundo */
-    animation: aparecerYCrecer 1s ease forwards;
+.pantallaBienvenida h1, .pantallaBienvenida h2 {
+    margin: 0;
+}
+/* ==========================================
+   LOS HIJOS (Estilos condicionados por el padre)
+   ========================================== */
+
+/* 1. El H1 gigante ("TOMATE") */
+/* Le decimos: "Solo a los h1 que vivan dentro de pantallaBienvenida" */
+.pantallaBienvenida h1 {
+    font-size: 20vw; /* Usamos 'vw' para que crezca o se encoja según el ancho de la pantalla */
+    font-weight: 900;
+    color: var(--acento-energia); /* El naranja/rojo vibrante de tu diseño */
+    line-height: 1; /* Evita que el texto gigante ocupe espacio extra arriba y abajo */
+    letter-spacing: -2px; /* Junta un poco las letras para ese look moderno */
+    /* EL RESALTE: Un resplandor de neón suave (Glow) usando su mismo color */
+    text-shadow: 0px 0px 100px rgba(255, 95, 31, 0.4), 0px 0px 300px rgba(255, 95, 31, 0.1);
+    /* Añadimos una transición suave para cuando el ratón entra y sale */
+    transition: all 0.3s ease;
+    /* LA ANIMACIÓN: Dura 1.2 segundos, entra de abajo hacia arriba */
+    animation: entrarFlotando 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* El nombre principal de la app */
-.splash-titulo {
-    font-size: 4.5rem;
-    color: var(--color-acento); /* Tu verde característico */
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
+.pantallaBienvenida h1:hover {
+    /* El texto crece un poquitito */
+    transform: scale(1.05); 
+    /* El brillo de neón se intensifica */
+    text-shadow: 0px 0px 150px rgba(255, 95, 31, 0.6), 0px 0px 400px rgba(255, 95, 31, 0.3);
+    /* Cambiamos el cursor para invitar a hacer clic (aunque no haga nada) */
+    cursor: default; 
 }
 
-/* El subtítulo */
-.splash-subtitulo {
-    font-size: 1.2rem;
-    color: var(--texto-secundario);
-    letter-spacing: 3px;
-    text-transform: uppercase;
+/* 2. El H2 ("Temporizador de enfoque") */
+.pantallaBienvenida h2 {
+    font-size: 2.5rem;
+    color: var(--texto-secundario); /* El gris secundario */
+    text-transform: uppercase; /* Lo fuerza a mayúsculas como en el video */
+    letter-spacing: 12px; /* Super separado para darle elegancia */
+    margin-top: 10px;
+    font-weight: 500;
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+    opacity: 0; 
+    
+    /* LA ANIMACIÓN: Empieza 0.4 segundos DESPUÉS del título (delay) */
+    animation: aparecerExpandiendo 1s ease-out 0.4s forwards;
 }
 
-/* Tu sello personal anclado al fondo */
-.splash-firma {
-    position: absolute; /* Lo saca del centro y nos deja pegarlo abajo */
-    bottom: 30px;
-    color: var(--texto-secundario);
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    /* Aparece en 1 segundo, pero espera 0.5s antes de arrancar (delay) para darle drama */
-    opacity: 0; /* Arranca invisible */
-    animation: aparecerYCrecer 1s ease 0.5s forwards;
+.pantallaBienvenida h2:hover {
+    /* Se ilumina ligeramente poniéndose blanco */
+    color: var(--texto-principal); 
+    /* Las letras se separan un poco más */
+    letter-spacing: 14px; 
 }
 
-/* Para que tu nombre destaque en blanco */
-.splash-firma strong {
-    color: var(--texto-principal);
+/* 3. El Párrafo de la firma ("by CCamiloVGarcia") */
+.pantallaBienvenida p {
+    position: absolute; /* Lo sacamos del grupo central */
+    bottom: 80px; /* Lo pegamos al fondo de la pantalla */
+    font-size: 1.5rem;
+    color: var(--texto-tenue); /* Un gris aún más oscuro */
+    letter-spacing: 2px;
     font-weight: bold;
+    transition: transform 0.3s ease;
+    /* EL EFECTO "HACIA ADENTRO" (Engraved/Letterpress) */
+    /* Usamos un color oscuro casi como el fondo */
+    /* Una sombra negra arriba (profundidad) y una blanca muy tenue abajo (luz reflejada) */
+    text-shadow: -2px -2px 4px rgba(0, 0, 0, 0.8), 2px 2px 2px rgba(255, 255, 255, 0.02);
+    
+    /* Arranca invisible */
+    opacity: 0; 
+    
+    /* LA ANIMACIÓN: Entra al final, 0.8 segundos de delay */
+    animation: entrarFlotando 1s ease-out 0.8s forwards;
 }
 
-/* --- ANIMACIONES DEL SPLASH SCREEN --- */
+.pantallaBienvenida p:hover {
+    /* El texto "sale" sutilmente del fondo (como si dejaras de presionarlo) */
+    transform: translateY(-2px);
+    text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.8), 2px 2px 5px rgba(255, 255, 255, 0.1);
+}
 
-/* Animación para el texto: Entra suave y se acerca */
-@keyframes aparecerYCrecer {
+/* Y si quieres darle color solo al 'strong' dentro de ese párrafo */
+.pantallaBienvenida p strong {
+    color: var(--texto-secundario);
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.pantallaBienvenida p:hover strong {
+    /* Tu nombre se ilumina al pasar el ratón por el párrafo completo */
+    color: var(--texto-principal); 
+}
+
+/* ==========================================
+   EL MOTOR DE ANIMACIONES (Keyframes)
+   ========================================== */
+
+/* Animación 1: Entrar desde abajo flotando y quitando un desenfoque (blur) */
+@keyframes entrarFlotando {
     0% {
         opacity: 0;
-        transform: scale(0.9); /* Ligeramente más pequeño */
+        transform: translateY(40px) scale(0.95);
+        filter: blur(5px);
     }
     100% {
         opacity: 1;
-        transform: scale(1); /* Tamaño real */
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
-/* Animación para el fondo: Se queda quieto un rato y luego desaparece */
-@keyframes desvanecerPantalla {
-    0%, 75% { 
-        /* Del 0% al 75% del tiempo total, se queda totalmente visible */
-        opacity: 1;
-        visibility: visible;
+/* Animación 2: Aparecer y ajustar el espacio entre letras */
+@keyframes aparecerExpandiendo {
+    0% {
+        opacity: 0;
+        letter-spacing: 25px; /* Empieza súper separado */
+        filter: blur(3px);
     }
     100% {
-        /* Al final, se vuelve transparente e invisible */
+        opacity: 1;
+        letter-spacing: 12px; /* Termina en tu medida perfecta */
+        filter: blur(0);
+    }
+}
+
+/* ==========================================
+   LA SALIDA (Cuando JS inyecta la clase .desvanecer)
+   ========================================== */
+
+/* 1. El Fondo (Padre) */
+.pantallaBienvenida.desvanecer {
+    pointer-events: none; 
+    /* LA MAGIA: Espera 1.2 segundos intacto, y luego se apaga en 0.8s */
+    animation: apagarFondo 0.8s forwards 1.2s; 
+}
+
+/* 2. El Título "TOMATE" */
+.pantallaBienvenida.desvanecer h1 {
+    /* Hace un efecto de aceleración hacia la cámara (zoom in) y se difumina */
+    animation: salirHaciaCamara 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards 0.6s;
+}
+
+/* 3. El Subtítulo */
+.pantallaBienvenida.desvanecer h2 {
+    /* Se esparce y desaparece muy rápido (0.3s) */
+    animation: salirDisperso 0.8s forwards 0.3s;
+}
+
+/* 4. La Firma */
+.pantallaBienvenida.desvanecer p {
+    /* Cae hacia la oscuridad */
+    animation: salirCayendo 0.6s forwards;
+}
+
+/* ==========================================
+   MOTOR DE ANIMACIONES DE SALIDA (Keyframes)
+   ========================================== */
+
+@keyframes salirHaciaCamara {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+    100% {
         opacity: 0;
+        transform: scale(1.5); /* Crece un 50% simulando acercamiento */
+        filter: blur(15px); /* Se desenfoca agresivamente */
+    }
+}
+
+@keyframes salirDisperso {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        letter-spacing: 30px; /* Las letras huyen hacia los lados */
+        transform: scale(0.9);
+    }
+}
+
+@keyframes salirCayendo {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(40px); /* Se hunde */
+    }
+}
+
+/* Nueva animación exclusiva para el fondo negro */
+@keyframes apagarFondo {
+    0% {
+        opacity: 1;
+        background-color: var(--fondo-void);
+    }
+    100% {
+        opacity: 0;
+        background-color: transparent;
         visibility: hidden;
     }
 }

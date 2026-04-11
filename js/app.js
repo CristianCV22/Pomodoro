@@ -1,7 +1,7 @@
 // 1. IMPORTAMOS LAS PIEZAS DESDE NUESTROS MÓDULOS
 import { btnIniciar, btnPausar, btnReiniciar } from './elementos.js';
 import { iniciarTemporizador, pausarTemporizador, reiniciarTemporizador } from './timer.js';
-import { inicializarSplash } from './splash.js';
+import { desplegarTelonInicial } from './splash.js';
 import { inicializarRitual } from './ritual.js';
 import { inicializarTareas } from './tareas.js';
 // Arriba en los imports:
@@ -11,7 +11,7 @@ import { inicializarEstadisticas } from './estadisticas.js';
 inicializarEstadisticas();
 
 // 2. INICIALIZAMOS LA INTERFAZ (Bienvenida y Ritual)
-inicializarSplash();
+desplegarTelonInicial();
 inicializarRitual();
 inicializarTareas();
 
